@@ -3,7 +3,7 @@ Author: Nya-WSL
 Copyright © 2024 by Nya-WSL All Rights Reserved. 
 Date: 2024-01-30 22:01:29
 LastEditors: 狐日泽
-LastEditTime: 2024-02-08 15:38:20
+LastEditTime: 2024-02-22 15:19:44
 '''
 
 import json
@@ -31,6 +31,10 @@ def update_value():
     base_l2d_atk_input.set_value(l2d_data[l2d_select.value]["base_l2d_atk"])
     harmony_atk_input.set_value(l2d_data[l2d_select.value]["harmony_atk"])
     base_weapon_atk_input.set_value(weapon_data[weapon_select.value]["base_weapon_atk"])
+    base_weapon_atk_label.set_text(weapon_data[weapon_select1.value]["base_weapon_atk"])
+    weapon_paths_label.set_text(weapon_data[weapon_select1.value]["weapon_paths"])
+    user_label.set_text(weapon_data[weapon_select1.value]["user"])
+    skill_label.set_text(weapon_data[weapon_select1.value]["skill"])
 
 def start():
     base_l2d_atk = base_l2d_atk_input.value # 角色基础攻击
@@ -191,6 +195,101 @@ with ui.tab_panels(tabs, value='计算器').classes('w-full'):
                 wish_damage_badge = ui.badge(0, outline=True)
                 wish_damage_badge.set_visibility(False)
 
+    with ui.tab_panel('角色'):
+        for key, value in dict(l2d_data).items():
+            with ui.element():
+                with ui.expansion(key).classes('w-full'):
+                    with ui.row():
+                        ui.badge("命途", outline=True)
+                        ui.label(l2d_data[key]["l2d_paths"])
+                        ui.badge("基础攻击", outline=True)
+                        ui.label(l2d_data[key]["base_l2d_atk"])
+                        ui.badge("行迹加成", outline=True)
+                        ui.label(l2d_data[key]["harmony_atk"])
+                        ui.badge("行迹", outline=True)
+                        ui.label(l2d_data[key]["traces"])
+
+                    ui.separator()
+
+                    with ui.row():
+                        ui.badge("普攻", outline=True)
+                        ui.label(l2d_data[key]["basic_atk_name"])
+                    ui.label(l2d_data[key]["basic_atk"])
+
+                    ui.separator()
+
+                    with ui.row():
+                        ui.badge("战技", outline=True)
+                        ui.label(l2d_data[key]["skill_name"])
+                    ui.label(l2d_data[key]["skill"])
+
+                    ui.separator()
+
+                    with ui.row():
+                        ui.badge("终结技", outline=True)
+                        ui.label(l2d_data[key]["ultimate_name"])
+                    ui.label(l2d_data[key]["ultimate"])
+
+                    ui.separator()
+
+                    with ui.row():
+                        ui.badge("天赋", outline=True)
+                        ui.label(l2d_data[key]["talent_name"])
+                    ui.label(l2d_data[key]["talent"])
+
+                    ui.separator()
+
+                    with ui.row():
+                        ui.badge("秘技", outline=True)
+                        ui.label(l2d_data[key]["technique_name"])
+                    ui.label(l2d_data[key]["technique"])
+
+                    ui.separator()
+
+                    with ui.row():
+                        ui.badge("额外能力1", outline=True)
+                        ui.label(l2d_data[key]["bonus_ability_1_name"])
+                    ui.label(l2d_data[key]["bonus_ability_1"])
+
+                    ui.separator()
+
+                    with ui.row():
+                        ui.badge("额外能力2", outline=True)
+                        ui.label(l2d_data[key]["bonus_ability_2_name"])
+                    ui.label(l2d_data[key]["bonus_ability_2"])
+
+                    ui.separator()
+
+                    with ui.row():
+                        ui.badge("额外能力3", outline=True)
+                        ui.label(l2d_data[key]["bonus_ability_3_name"])
+                    ui.label(l2d_data[key]["bonus_ability_3"])
+
+                    ui.separator()
+
+                    with ui.row():
+                        ui.badge("星魂", outline=True)
+                        ui.label(l2d_data[key]["eidolons"])
+
+                ui.separator()
+
+    with ui.tab_panel('光锥'):
+        weapon_select1 = ui.select(label="武器", options=weapon_key, value=weapon_key[0], on_change=lambda: update_value())
+        with ui.element():
+            with ui.row():
+                ui.badge("基础攻击", outline=True)
+                base_weapon_atk_label = ui.label(weapon_data[weapon_select1.value]["base_weapon_atk"])
+
+            with ui.row():
+                ui.badge("命途", outline=True)
+                weapon_paths_label = ui.label(weapon_data[weapon_select1.value]["weapon_paths"])
+
+            with ui.row():
+                ui.badge("专武", outline=True)
+                user_label = ui.label(weapon_data[weapon_select1.value]["user"])
+
+            skill_label = ui.label(weapon_data[weapon_select1.value]["skill"])
+
 port = 3334
-verison = "1.0.0"
-ui.run(port=port, title=f"崩坏：星穹铁道伤害计算器v{verison}", window_size=[1600, 900], native=True, show=False, reload=True, language="zh-CN")
+verison = "1.1.0"
+ui.run(port=port, title=f"崩坏：星穹铁道伤害计算器v{verison}", window_size=[1600, 900], native=True, show=False, reload=False, language="zh-CN")
